@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="320" height="320" viewBox="177 88 320 320" fill="none" role="img" aria-labelledby="logo-title logo-description">
+  <title id="logo-title">Doodly — eyes and smile icon</title>
+  <desc id="logo-description">The original double-o eyes, smile, and three warm yellow idea rays, isolated from the Doodly wordmark. Transparent background. All artwork is editable vector geometry with no fonts, raster images, or external resources. Ink #212427; warm yellow #FFB72F.</desc>
+  <g id="idea-rays" inkscape:label="Idea rays — warm yellow" fill="none" stroke="#FFB72F" stroke-linecap="round">
+    <path id="ray-left" d="M268 152 L285 176" stroke-width="14"/>
+    <path id="ray-center" d="M328 128 L328 162" stroke-width="13"/>
+    <path id="ray-right" d="M386 151 L370 174" stroke-width="14"/>
+  </g>
+  <g id="eyes" inkscape:label="Double-o eyes" fill="#212427">
+    <g id="eye-left" inkscape:label="Left o and pupil">
+      <path id="eye-left-ring" fill-rule="evenodd" d="M292 223 C266 221 245 240 242 268 C239 294 254 317 279 321 C306 325 329 309 335 285 C342 258 324 228 299 224 C297 224 294 223 292 223 Z M290 245 C306 245 318 256 318 271 C318 287 307 299 291 299 C275 300 264 289 266 274 C267 257 277 245 290 245 Z"/>
+      <path id="eye-left-pupil" d="M307 266 C314 266 320 272 320 280 C320 287 315 293 308 293 C300 292 295 288 295 280 C294 273 300 267 307 266 Z"/>
+    </g>
+    <g id="eye-right" inkscape:label="Right o and pupil">
+      <path id="eye-right-ring" fill-rule="evenodd" d="M382 220 C356 221 336 239 333 265 C329 291 345 313 370 318 C397 323 421 309 429 284 C438 258 425 233 403 223 C397 220 389 219 382 220 Z M382 241 C399 240 410 251 410 266 C411 283 400 295 384 296 C367 297 354 285 355 269 C355 254 367 242 382 241 Z"/>
+      <path id="eye-right-pupil" d="M396 264 C403 264 408 270 408 277 C408 285 403 291 396 291 C388 291 383 285 383 278 C383 270 388 264 396 264 Z"/>
+    </g>
+  </g>
+  <g id="smile" inkscape:label="Smile" fill="#212427">
+    <path id="smile-curve" d="M263 334 C277 355 301 369 332 369 C362 369 390 354 407 330" fill="none" stroke="#212427" stroke-width="17" stroke-linecap="round"/>
+    <circle id="smile-left-tip" cx="263" cy="334" r="10"/>
+    <circle id="smile-right-tip" cx="407" cy="330" r="10"/>
+  </g>
+</svg>

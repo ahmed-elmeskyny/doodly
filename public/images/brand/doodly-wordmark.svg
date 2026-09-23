@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="648" height="338" viewBox="60 90 648 338" fill="none" role="img" aria-labelledby="logo-title logo-description">
+  <title id="logo-title">Doodly — wordmark</title>
+  <desc id="logo-description">Playful hand-drawn Doodly wordmark with double-o eyes, a smile, and three warm yellow idea rays. No tagline. Transparent background. All artwork is editable vector geometry with no fonts, raster images, or external resources. Ink #212427; warm yellow #FFB72F.</desc>
+  <g id="idea-rays" inkscape:label="Idea rays — warm yellow" fill="none" stroke="#FFB72F" stroke-linecap="round">
+    <path id="ray-left" d="M268 152 L285 176" stroke-width="14"/>
+    <path id="ray-center" d="M328 128 L328 162" stroke-width="13"/>
+    <path id="ray-right" d="M386 151 L370 174" stroke-width="14"/>
+  </g>
+  <g id="letters" inkscape:label="Hand-drawn letters" fill="#212427">
+    <path id="letter-D" inkscape:label="D" fill-rule="evenodd" d="M116 176 C126 163 147 162 164 167 C195 175 221 197 234 227 C244 251 243 275 231 298 C214 328 180 350 137 359 C127 362 121 358 119 351 C116 342 122 337 134 332 L116 207 C111 212 106 218 100 218 C91 218 85 211 90 201 C95 191 106 181 116 176 Z M141 194 L161 323 C181 313 197 298 207 279 C216 262 213 244 204 228 C191 206 163 189 141 194 Z"/>
+    <path id="letter-d" inkscape:label="d" fill-rule="evenodd" d="M503 159 C511 158 517 165 517 173 L518 241 C519 269 523 295 534 311 C541 322 535 332 526 332 C515 331 507 319 501 305 C494 318 482 326 467 327 C448 329 435 318 434 301 C432 281 441 261 457 249 C466 242 477 238 489 241 L490 179 C490 167 493 160 503 159 Z M484 268 C474 264 465 277 461 288 C456 300 462 302 470 296 C477 290 482 278 484 268 Z"/>
+    <path id="letter-l" inkscape:label="l" d="M556 147 C563 148 568 154 566 164 C561 201 560 239 563 272 C564 285 567 296 570 304 C573 313 565 321 556 320 C545 319 541 307 538 294 C533 273 533 244 535 214 C536 189 539 160 545 152 C548 148 552 147 556 147 Z"/>
+    <path id="letter-y" inkscape:label="y" d="M600 218 C609 220 613 228 609 239 C604 252 602 265 608 273 C614 282 625 273 632 263 C638 253 643 238 647 224 C650 215 656 212 663 214 C671 216 674 222 674 233 C679 276 677 317 667 351 C658 383 642 400 619 398 C597 396 584 381 583 357 C581 344 584 331 591 327 C600 322 610 328 609 337 C607 352 610 367 619 369 C629 372 638 355 642 340 C646 325 648 309 648 291 C638 302 627 307 615 305 C592 303 579 288 578 267 C576 251 580 233 586 224 C590 219 595 217 600 218 Z"/>
+  </g>
+  <g id="eyes" inkscape:label="Double-o eyes" fill="#212427">
+    <g id="eye-left" inkscape:label="Left o and pupil">
+      <path id="eye-left-ring" fill-rule="evenodd" d="M292 223 C266 221 245 240 242 268 C239 294 254 317 279 321 C306 325 329 309 335 285 C342 258 324 228 299 224 C297 224 294 223 292 223 Z M290 245 C306 245 318 256 318 271 C318 287 307 299 291 299 C275 300 264 289 266 274 C267 257 277 245 290 245 Z"/>
+      <path id="eye-left-pupil" d="M307 266 C314 266 320 272 320 280 C320 287 315 293 308 293 C300 292 295 288 295 280 C294 273 300 267 307 266 Z"/>
+    </g>
+    <g id="eye-right" inkscape:label="Right o and pupil">
+      <path id="eye-right-ring" fill-rule="evenodd" d="M382 220 C356 221 336 239 333 265 C329 291 345 313 370 318 C397 323 421 309 429 284 C438 258 425 233 403 223 C397 220 389 219 382 220 Z M382 241 C399 240 410 251 410 266 C411 283 400 295 384 296 C367 297 354 285 355 269 C355 254 367 242 382 241 Z"/>
+      <path id="eye-right-pupil" d="M396 264 C403 264 408 270 408 277 C408 285 403 291 396 291 C388 291 383 285 383 278 C383 270 388 264 396 264 Z"/>
+    </g>
+  </g>
+  <g id="smile" inkscape:label="Smile" fill="#212427">
+    <path id="smile-curve" d="M263 334 C277 355 301 369 332 369 C362 369 390 354 407 330" fill="none" stroke="#212427" stroke-width="17" stroke-linecap="round"/>
+    <circle id="smile-left-tip" cx="263" cy="334" r="10"/>
+    <circle id="smile-right-tip" cx="407" cy="330" r="10"/>
+  </g>
+</svg>
