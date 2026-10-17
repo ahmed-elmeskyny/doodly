@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { PRODUCT, bundleSavings, money, type Language, type Quantity } from "@/lib/product";
+import { PRODUCT, bundleSavings, money, resolveLanguage, type Language, type Quantity } from "@/lib/product";
 import { translations, type Copy } from "@/lib/translations";
 import { trackEvent } from "@/lib/analytics";
 import { reviews } from "@/lib/reviews";
@@ -53,7 +53,14 @@ export function Storefront() {
   const [orderVisible, setOrderVisible] = useState(false);
   const t = translations[language];
   useEffect(() => {
-    try { const saved = localStorage.getItem("doodly-language"); if (saved === "fr" || saved === "ar") setLanguage(saved); } catch { /* Storage may be disabled. */ }
+    let saved: string | null = null;
+    try { saved = localStorage.getItem("doodly-language"); } catch { /* Storage may be disabled. */ }
+    const requested = new URLSearchParams(window.location.search).get("lang");
+    const preferred = resolveLanguage(requested, saved, navigator.language);
+    setLanguage(preferred);
+    if (requested === "fr" || requested === "ar") {
+      try { localStorage.setItem("doodly-language", requested); } catch { /* Optional persistence. */ }
+    }
   }, []);
   useEffect(() => { document.documentElement.lang = language; document.documentElement.dir = language === "ar" ? "rtl" : "ltr"; }, [language]);
   useEffect(() => {
@@ -66,6 +73,9 @@ export function Storefront() {
   function changeLanguage(value: Language) {
     setLanguage(value);
     try { localStorage.setItem("doodly-language", value); } catch { /* Optional persistence. */ }
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", value);
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
     trackEvent("language_change", { language: value });
   }
   function selectQuantity(value: Quantity) { setQuantity(value); trackEvent(value === 1 ? "select_single_blanket" : "select_two_blankets", { quantity: value }); }

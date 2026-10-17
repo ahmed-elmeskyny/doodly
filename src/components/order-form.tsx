@@ -2,14 +2,14 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { PRODUCT, getTotals, money, type Quantity, type Language } from "@/lib/product";
-import { normalizePhone, submitOrder, validateOrder, OrderError, type OrderFields, type FieldErrors, type OrderPayload } from "@/lib/orders";
-import { trackEvent } from "@/lib/analytics";
+import { getOrderAttribution, normalizePhone, submitOrder, validateOrder, OrderError, type OrderFields, type FieldErrors, type OrderPayload } from "@/lib/orders";
+import { getMetaBrowserData, trackEvent } from "@/lib/analytics";
 import type { Copy } from "@/lib/translations";
 import { Eyes, Icon } from "./ui";
 
 export function OrderSummary({ quantity, t }: { quantity: Quantity; t: Copy }) {
   const totals = getTotals(quantity);
-  return <div className="order-summary" aria-live="polite" aria-atomic="true"><h4>{t.summary}</h4><div><span>{t.subtotal} · {quantity === 1 ? t.single : t.double}</span><span dir="ltr">{money(totals.productSubtotal)}</span></div><div><span>{t.shippingLabel}</span><span dir="ltr">{money(totals.shippingCost)}</span></div><div className="summary-total"><strong>{t.total}</strong><strong dir="ltr">{money(totals.orderTotal)}</strong></div></div>;
+  return <div className="order-summary" aria-live="polite" aria-atomic="true"><h4>{t.summary}</h4><div><span>{t.subtotal} · {quantity === 1 ? t.single : t.double}</span><span dir="ltr">{money(totals.productSubtotal)}</span></div><div><span>{t.shippingLabel}</span><strong className="free-shipping">{t.freeShipping}</strong></div><div className="summary-total"><strong>{t.total}</strong><strong dir="ltr">{money(totals.orderTotal)}</strong></div></div>;
 }
 
 export function OrderForm({ quantity, setQuantity, language, t }: { quantity: Quantity; setQuantity: (value: Quantity) => void; language: Language; t: Copy }) {
@@ -17,7 +17,7 @@ export function OrderForm({ quantity, setQuantity, language, t }: { quantity: Qu
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorCode, setErrorCode] = useState("");
-  const [submitted, setSubmitted] = useState<OrderPayload | null>(null);
+  const [submitted, setSubmitted] = useState<{ order: OrderPayload; orderNumber: string } | null>(null);
   const started = useRef(false);
   const sending = useRef(false);
   const attempt = useRef<{ fingerprint: string; id: string } | null>(null);
@@ -43,19 +43,19 @@ export function OrderForm({ quantity, setQuantity, language, t }: { quantity: Qu
     const clean = { fullName: fields.fullName.trim(), phone: normalizePhone(fields.phone), city: fields.city.trim(), address: fields.address.trim(), notes: fields.notes.trim() };
     const fingerprint = JSON.stringify({ ...clean, quantity });
     if (attempt.current?.fingerprint !== fingerprint) attempt.current = { fingerprint, id: crypto.randomUUID() };
-    const order: OrderPayload = { ...clean, orderId: attempt.current.id, timestamp: new Date().toISOString(), quantity, ...getTotals(quantity), language, source: "doodly-web" };
+    const order: OrderPayload = { ...clean, ...getOrderAttribution(window.location.search), ...getMetaBrowserData(), submissionId: attempt.current.id, timestamp: new Date().toISOString(), quantity, ...getTotals(quantity), language, source: "doodly-web" };
     try {
-      await submitOrder(order);
-      setSubmitted(order);
+      const orderNumber = await submitOrder(order);
+      setSubmitted({ order, orderNumber });
       setStatus("success");
-      trackEvent("order_success", { quantity, total: order.orderTotal, language });
+      trackEvent("order_success", { quantity, total: order.orderTotal, language, eventId: order.submissionId });
     } catch (error) {
       setErrorCode(error instanceof OrderError ? error.code : "failed");
       setStatus("error");
     } finally { sending.current = false; }
   }
 
-  if (status === "success" && submitted) return <div className="order-form success-panel" ref={successRef} tabIndex={-1} role="status"><Eyes/><span className="success-check"><Icon name="check"/></span><h3>{t.successTitle}</h3><p>{t.successCopy}</p><p>{t.successDelivery}</p><OrderSummary quantity={submitted.quantity} t={t}/><p className="payment-note"><Icon name="box"/>{t.cod}</p><a href="#produit" className="text-link">{t.successBack}<Icon name="arrow"/></a></div>;
+  if (status === "success" && submitted) return <div className="order-form success-panel" ref={successRef} tabIndex={-1} role="status"><Eyes/><span className="success-check"><Icon name="check"/></span><h3>{t.successTitle}</h3><p className="order-number"><strong>{t.orderNumber}</strong> <span dir="ltr">{submitted.orderNumber}</span></p><p>{t.successCopy}</p><p>{t.successDelivery}</p><OrderSummary quantity={submitted.order.quantity} t={t}/><p className="payment-note"><Icon name="box"/>{t.cod}</p><a href="#produit" className="text-link">{t.successBack}<Icon name="arrow"/></a></div>;
 
   return <form className="order-form" noValidate onSubmit={handleSubmit} onFocus={() => { if (!started.current) { started.current = true; trackEvent("begin_order", { language }); } }} aria-busy={status === "submitting"}>
     <div className="form-heading"><h3>{t.orderFormTitle}</h3><Icon name="pen"/></div><p className="required-note">{t.requiredNote}</p>

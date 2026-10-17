@@ -7,6 +7,19 @@ export type OrderFields = {
 };
 export type FieldErrors = Partial<Record<keyof OrderFields, "required" | "phone" | "short" | "long">>;
 
+export type OrderAttribution = {
+  utmSource: string;
+  utmMedium: string;
+  utmCampaign: string;
+  utmContent: string;
+};
+
+export function getOrderAttribution(search: string): OrderAttribution {
+  const params = new URLSearchParams(search);
+  const read = (key: string) => (params.get(key) ?? "").trim().slice(0, 200);
+  return { utmSource: read("utm_source"), utmMedium: read("utm_medium"), utmCampaign: read("utm_campaign"), utmContent: read("utm_content") };
+}
+
 export function normalizePhone(phone: string) {
   const latin = phone.replace(/[٠-٩۰-۹]/g, c => String(c.charCodeAt(0) - (c >= "۰" ? 1776 : 1632)));
   const compact = latin.replace(/[\s().-]/g, "");
@@ -27,8 +40,8 @@ export function validateOrder(fields: OrderFields): FieldErrors {
   return errors;
 }
 
-export type OrderPayload = OrderFields & {
-  orderId: string;
+export type OrderPayload = OrderFields & OrderAttribution & {
+  submissionId: string;
   timestamp: string;
   quantity: 1 | 2;
   productSubtotal: number;
@@ -36,6 +49,9 @@ export type OrderPayload = OrderFields & {
   orderTotal: number;
   language: "fr" | "ar";
   source: string;
+  fbp: string;
+  fbc: string;
+  eventSourceUrl: string;
 };
 
 export class OrderError extends Error {
@@ -43,7 +59,7 @@ export class OrderError extends Error {
   constructor(code: string) { super(code); this.code = code; }
 }
 
-export async function submitOrder(order: OrderPayload): Promise<void> {
+export async function submitOrder(order: OrderPayload): Promise<string> {
   let response: Response;
   try {
     response = await fetch("/api/orders", {
@@ -54,5 +70,6 @@ export async function submitOrder(order: OrderPayload): Promise<void> {
     });
   } catch { throw new OrderError("network"); }
   const result = await response.json().catch(() => null);
-  if (!response.ok || result?.success !== true) throw new OrderError(result?.code ?? "failed");
+  if (!response.ok || result?.success !== true || typeof result.orderNumber !== "string" || !/^S\d{3,}$/.test(result.orderNumber)) throw new OrderError(result?.code ?? "failed");
+  return result.orderNumber;
 }

@@ -269,6 +269,7 @@ fieldset { min-width: 0; border: 0; padding: 0; margin: 0; }
 .order-summary h4 { font-size: 13px; margin-bottom: 14px; }
 .order-summary > div { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 11px; margin-top: 9px; color: var(--muted); }
 .order-summary > div > span:last-child { white-space: nowrap; }
+.free-shipping { color: #287255; background: #dff3e7; border-radius: 999px; padding: 3px 9px; font-size: 10px; }
 .order-summary .summary-total { color: var(--ink); border-top: 1px solid #dddfd2; padding-top: 14px; margin-top: 14px; }
 .summary-total strong:first-child { font-size: 12px; }
 .summary-total strong:last-child { font-size: 22px; font-family: "Nunito Variable", sans-serif; font-weight: 850; }
@@ -284,6 +285,8 @@ fieldset { min-width: 0; border: 0; padding: 0; margin: 0; }
 .success-check .icon { width: 32px; height: 32px; }
 .success-panel h3 { font-size: 28px; margin-bottom: 20px; }
 .success-panel p { color: var(--muted); font-size: 13px; }
+.success-panel .order-number { color: var(--ink); font-size: 15px; margin-bottom: 14px; }
+.success-panel .order-number span { display: inline-block; font-weight: 800; letter-spacing: .06em; }
 .success-panel .order-summary { text-align: start; margin-bottom: 20px; }
 .success-panel .text-link { margin-top: 26px; font-size: 12px; }
 .spinner { width: 18px; height: 18px; border: 2px solid #29292333; border-top-color: var(--ink); border-radius: 50%; animation: spin .7s linear infinite; }

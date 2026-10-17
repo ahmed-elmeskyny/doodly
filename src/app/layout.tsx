@@ -3,11 +3,12 @@ import "@fontsource-variable/nunito";
 import "@fontsource-variable/dm-sans";
 import "@fontsource-variable/noto-sans-arabic";
 import "./globals.css";
+import { MetaPixel } from "@/components/meta-pixel";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL || "http://localhost:3000"),
   title: "Doodly — La couverture à colorier, laver et recommencer",
-  description: "Une couverture à colorier lavable et réutilisable pour les enfants. 12 feutres inclus, un dos en coton doux et la livraison partout au Maroc. Paiement à la livraison.",
+  description: "Une couverture à colorier lavable et réutilisable pour les enfants. 12 feutres inclus, un dos en coton doux et la livraison gratuite partout au Maroc. Paiement à la livraison.",
   openGraph: {
     title: "Doodly — Coloriez-le. Lavez-le. Recommencez.",
     description: "Une grande couverture. Une infinité d’aventures. Découvrez Doodly, la couverture à colorier lavable et réutilisable, livrée au Maroc.",
@@ -19,5 +20,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="fr" dir="ltr" suppressHydrationWarning><body>{children}</body></html>;
+  return <html lang="fr" dir="ltr" suppressHydrationWarning><body>{children}<MetaPixel pixelId={process.env.META_PIXEL_ID || ""}/></body></html>;
 }
